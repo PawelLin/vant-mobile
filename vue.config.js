@@ -1,5 +1,5 @@
 const config = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/dist/vant-demo' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/vant-demo/dist' : '/',
     lintOnSave: false,
     css: {
         loaderOptions: {
