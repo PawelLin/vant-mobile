@@ -16,6 +16,7 @@
 
 <script>
 import data from './data'
+import taotao from '@/assets/taotao.jpg'
 export default {
     name: 'hero',
     data () {
@@ -46,7 +47,8 @@ export default {
         this.scroll = { side: 0, grid: 0 }
     },
     created () {
-        this.list = data.hero.map(item => (item.show = true) && item)
+        // this.list = data.hero.map(item => (item.show = true) && item)
+        this.list = [{ name: '滔滔', type: ['6'], image: taotao }].concat(data.hero).map(item => (item.show = true) && item)
     },
     mounted () {
         console.log('Hero mounted')
