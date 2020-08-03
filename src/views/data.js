@@ -1,11 +1,12 @@
 export default {
     // type 1-坦克 2-战士 3-刺客 4-法师 5-射手 6-辅助 tiger-五虎 beauty-四大美女
     hero: [
-        { name: '镜', type: ['3'], image: 'http://game.gtimg.cn/images/yxzj/img201606/heroimg/531/531.jpg' },
-        { name: '蒙犽', type: ['5'], image: 'http://game.gtimg.cn/images/yxzj/img201606/heroimg/524/524.jpg' },
-        { name: '鲁班大师', type: ['6'], image: 'http://game.gtimg.cn/images/yxzj/img201606/heroimg/525/525.jpg' },
-        { name: '西施', type: ['4', 'beauty'], image: 'http://game.gtimg.cn/images/yxzj/img201606/heroimg/523/523.jpg' },
-        { name: '马超', type: ['2', '3', 'tiger'], image: 'http://game.gtimg.cn/images/yxzj/img201606/heroimg/518/518.jpg' },
+        { name: '蒙恬', type: ['2'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/527/527.jpg' },
+        { name: '镜', type: ['3'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/531/531.jpg' },
+        { name: '蒙犽', type: ['5'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/524/524.jpg' },
+        { name: '鲁班大师', type: ['6'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/525/525.jpg' },
+        { name: '西施', type: ['4', 'beauty'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/523/523.jpg' },
+        { name: '马超', type: ['2', '3', 'tiger'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/518/518.jpg' },
         { name: '曜', type: ['2'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/522/522.jpg' },
         { name: '云中君', type: ['2', '3'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/506/506.jpg' },
         { name: '瑶', type: ['6'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/505/505.jpg' },
