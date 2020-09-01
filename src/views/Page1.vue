@@ -1,9 +1,12 @@
 <template>
     <section class="page1">
-        <van-nav-bar title="Page1" left-arrow fixed @click-left="handleClick"></van-nav-bar>
-        <div class="fixed"></div>
-        <van-field v-for="i in 50" v-model="text" label="文本" :key="i" />
-        <van-button @click="handleToPage2">跳转Page2</van-button>
+        <van-nav-bar title="Page1" left-arrow @click-left="handleClick"></van-nav-bar>
+        <div class="contain">
+            <div class="fixed"></div>
+            <van-field v-for="i in 50" v-model="text" label="文本" :key="i" />
+            <van-button @click="handleReplacePage2">跳转Page2(replace)</van-button>
+            <van-button @click="handleToPage3">跳转Page3</van-button>
+        </div>
     </section>
 </template>
 
@@ -20,11 +23,18 @@ export default {
     },
     methods: {
         handleClick () {
-            this.goBack('demo')
+            this.goBack({
+                name: 'demo'
+            })
         },
-        handleToPage2 () {
-            this.$router.push({
+        handleReplacePage2 () {
+            this.replaceRoute({
                 name: 'page2'
+            })
+        },
+        handleToPage3 () {
+            this.$router.push({
+                name: 'page3'
             })
         }
     }
@@ -33,7 +43,6 @@ export default {
 
 <style lang="less" scoped>
 .page1 {
-    padding-top: 46px;
 }
 .fixed {
     position: fixed;

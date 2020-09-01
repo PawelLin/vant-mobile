@@ -1,6 +1,7 @@
 export default {
     // type 1-坦克 2-战士 3-刺客 4-法师 5-射手 6-辅助 tiger-五虎 beauty-四大美女
     hero: [
+        { name: '阿古朵', type: ['1'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/533/533.jpg' },
         { name: '蒙恬', type: ['2'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/527/527.jpg' },
         { name: '镜', type: ['3'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/531/531.jpg' },
         { name: '蒙犽', type: ['5'], image: '//game.gtimg.cn/images/yxzj/img201606/heroimg/524/524.jpg' },

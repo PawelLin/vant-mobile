@@ -26,6 +26,11 @@ const router = new Router({
             component: Home
         },
         {
+            path: '/my',
+            name: 'my',
+            component: () => import(/* webpackChunkName: "my" */ './views/My.vue')
+        },
+        {
             path: '/about',
             name: 'about',
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
@@ -46,6 +51,11 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "demo" */ './views/Page2.vue')
         },
         {
+            path: '/page3',
+            name: 'page3',
+            component: () => import(/* webpackChunkName: "demo" */ './views/Page3.vue')
+        },
+        {
             path: '/hero',
             name: 'hero',
             component: () => import(/* webpackChunkName: "demo" */ './views/Hero.vue')
@@ -64,16 +74,14 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    store.commit('setList', { to, from })
+    store.commit('setRoutes', { to, from })
     if (store.state.forward) {
-        store.commit('setRoutes', { name: from.name, scrollTop: document.documentElement.scrollTop })
-        store.commit('setRoutes', { name: from.name, height: document.querySelector('#app > section').offsetHeight })
+        const scrollTop = document.querySelector('#app > section > .contain').scrollTop || 0
+        store.commit('setRoute', { name: from.name, scrollTop })
     }
     next()
 })
-router.afterEach((to) => {
-    console.log('afterEach')
-    console.log(store.state.routes)
+router.afterEach(to => {
 })
 
 export default router

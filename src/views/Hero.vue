@@ -1,6 +1,6 @@
 <template>
     <section class="hero">
-        <van-nav-bar title="英雄" left-arrow fixed @click-left="handleClick"></van-nav-bar>
+        <van-nav-bar title="英雄" left-arrow @click-left="handleClick"></van-nav-bar>
         <div class="contain">
             <van-sidebar ref="side" class="side" v-model="active">
                 <van-sidebar-item @click="handleActive(type)" v-for="{ title, type } in side" :title="title" :key="type" />
@@ -78,8 +78,6 @@ export default {
 
 <style lang="less" scoped>
 .hero {
-    padding-top: 46px;
-    height: 100%;
     .contain {
         display: flex;
         align-items: flex-start;
@@ -105,11 +103,5 @@ export default {
         border: 2px solid #258DF2;
         border-radius: 10px 0 10px 0;
     }
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 </style>

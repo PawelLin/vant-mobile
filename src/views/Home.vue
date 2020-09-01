@@ -1,12 +1,18 @@
 <template>
     <section class="home">
-        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item class="my-swipe-item" v-for="item in banner" :style="{ backgroundImage: `url(${item})` }" :key="item"></van-swipe-item>
-        </van-swipe>
-        <van-grid :column-num="3">
-            <van-grid-item @click="handleTo(name)" v-for="{ name, icon, title } in list" :key="name" :icon="icon" :text="title" />
-        </van-grid>
-        <van-button @click="handleClick">跳转demo</van-button>
+        <div class="contain">
+            <van-swipe class="my-swipe" :autoplay="autoplay" indicator-color="white">
+                <van-swipe-item class="my-swipe-item" v-for="item in banner" :style="{ backgroundImage: `url(${item})` }" :key="item"></van-swipe-item>
+            </van-swipe>
+            <van-grid :column-num="3">
+                <van-grid-item @click="handleTo(name)" v-for="{ name, icon, title } in list" :key="name" :icon="icon" :text="title" />
+            </van-grid>
+            <van-button @click="handleClick">跳转demo</van-button>
+        </div>
+        <van-tabbar>
+            <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+            <van-tabbar-item @click="handleReplaceMy" icon="search">我的</van-tabbar-item>
+        </van-tabbar>
     </section>
 </template>
 
@@ -16,6 +22,7 @@ export default {
     name: 'home',
     data () {
         return {
+            autoplay: 3000,
             banner: [
                 'http://game.gtimg.cn/images/yxzj/img201606/skin/hero-info/111/111-bigskin-5.jpg',
                 'http://game.gtimg.cn/images/yxzj/img201606/skin/hero-info/111/111-bigskin-6.jpg',
@@ -45,6 +52,11 @@ export default {
         },
         handleTo (name) {
             this.$router.push({ name })
+        },
+        handleReplaceMy () {
+            this.replaceRoute({
+                name: 'my'
+            })
         }
     }
 }

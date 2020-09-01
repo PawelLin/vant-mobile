@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>mobile-demo</title>
+    <% if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'development') { %>
+      <script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js"></script>
+      <script>eruda.init();</script>
+    <% } %>
   </head>
   <body>
     <noscript>

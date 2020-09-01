@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <!-- <van-button @click="on = !on">按钮</van-button> -->
         <transition
             @before-enter="beforeEnter"
             @enter="enter"
@@ -10,11 +9,11 @@
             @leave="leave"
             @after-leave="afterLeave"
             @leave-cancelled="leaveCancelled"
-    >
-            <keep-alive :include="list">
+            :css="false"
+        >
+            <keep-alive :include="include">
                 <router-view />
             </keep-alive>
-            <!-- <div v-if="on" class="test">123</div> -->
         </transition>
     </div>
 </template>
@@ -25,89 +24,99 @@ import { mapState } from 'vuex'
 export default {
     data () {
         return {
-            on: false
+            on: false,
+            isTabbar: true
         }
     },
     beforeCreate () {
-        this.winScrollTop = 0
-        this.divMarginTop = 0
         this.duration = 300
     },
     computed: mapState({
-        list: state => state.list,
+        include: state => state.routes.filter(item => !item.refresh).map(item => item.name).concat(state.tabbar),
         forward: state => state.forward,
-        routes: state => state.routes
+        routes: state => {
+            const routes = {}
+            state.routes.forEach(item => {
+                routes[item.name] = item
+            })
+            return routes
+        },
+        tabbarRoutes: state => state.tabbarRoutes,
+        tabbar: state => state.tabbar,
+        fromRoute: state => state.fromRoute
     }),
     methods: {
         beforeEnter (el) {
-            console.log('beforeEnter')
-            if (this.forward !== null) {
-                el.style.position = 'absolute'
-                el.style.width = '100%'
-                this.winScrollTop = document.documentElement.scrollTop
-                if (this.forward) {
-                    window.scrollTo(0, 0)
-                    Velocity(el, { translateX: '100%' }, { duration: 0 })
-                } else {
-                    this.divMarginTop = this.routes[this.$route.name].scrollTop
-                    document.body.style.height = this.routes[this.$route.name].height + 'px'
-                    window.scrollTo(0, this.divMarginTop)
-                    el.style.marginTop = ''
-                    el.children[0].style.top = this.divMarginTop + 'px'
-                    Velocity(el, { translateX: '-100%' }, { duration: 0 })
+            // console.log('beforeEnter')
+            this.isTabbar = this.tabbar.includes(this.$route.name) && this.tabbar.includes(this.fromRoute)
+            if (!this.isTabbar) {
+                if (this.forward !== null) {
+                    const translateX = this.forward ? '100%' : '-100%'
+                    el.style.position = 'absolute'
+                    el.style.width = '100%'
+                    Velocity(el, { translateX }, { duration: 0 })
                 }
             }
         },
         enter (el, done) {
-            console.log('enter')
-            if (this.forward !== null) {
-                Velocity(el, { translateX: 0 }, { duration: this.duration, complete: done })
+            // console.log('enter')
+            const { refresh, scrollTop = 0 } = this.tabbarRoutes[this.$route.name] || this.routes[this.$route.name] || {}
+            if (!this.isTabbar) {
+                if (this.forward !== null) {
+                    Velocity(el, { translateX: 0 }, { duration: this.duration, complete: done })
+                    if (this.forward) {
+                    } else {
+                        if (refresh) { // 需要刷新页面就不设置scrollTop了
+                            this.$store.commit('setRoute', { name: this.$route.name, refresh: false })
+                        } else {
+                            el.querySelector('.contain').scrollTop = scrollTop
+                        }
+                    }
+                }
+            } else {
+                el.querySelector('.contain').scrollTop = scrollTop
+                done()
             }
         },
         afterEnter (el) {
-            el.style.position = ''
-            el.style.width = ''
-            document.body.style.height = ''
-            el.style.marginTop = ''
-            el.children[0].style.top = ''
-            el.style.transform = ''
-            console.log('afterEnter')
+            // console.log('afterEnter')
+            if (!this.isTabbar) {
+                el.style.position = ''
+                el.style.width = ''
+                el.style.transform = ''
+            }
         },
         enterCancelled (el) {
-            console.log('enterCancelled')
+            // console.log('enterCancelled')
         },
         beforeLeave (el) {
-            console.log('beforeLeave')
-            el.style.position = 'absolute'
-            el.style.width = '100%'
-            el.style.transform = 'translate3d(0, 0, 0)'
-            el.children[0].style.top = this.winScrollTop + 'px'
-            if (this.forward) {
-                el.style.marginTop = -this.winScrollTop + 'px'
-            } else {
-                el.style.marginTop = (this.divMarginTop - this.winScrollTop) + 'px'
+            // console.log('beforeLeave')
+            if (!this.isTabbar) {
+                el.style.position = 'absolute'
+                el.style.width = '100%'
             }
         },
         leave (el, done) {
-            console.log('leave')
-            setTimeout(() => {
-                if (this.forward) {
-                    Velocity(el, { translateX: '-100%' }, { duration: this.duration, complete: done })
-                } else {
-                    Velocity(el, { translateX: '100%' }, { duration: this.duration, complete: done })
-                }
-            }, 10)
+            // console.log('leave')
+            if (!this.isTabbar) {
+                setTimeout(() => {
+                    const translateX = this.forward ? '-100%' : '100%'
+                    Velocity(el, { translateX }, { duration: this.duration, complete: done })
+                }, 10)
+            } else {
+                done()
+            }
         },
         afterLeave (el) {
-            el.style.position = ''
-            el.style.width = ''
-            el.style.transform = ''
-            el.children[0].style.top = ''
-            el.style.marginTop = ''
-            console.log('afterLeave')
+            // console.log('afterLeave')
+            if (!this.isTabbar) {
+                el.style.position = ''
+                el.style.width = ''
+                el.style.transform = ''
+            }
         },
         leaveCancelled (el) {
-            console.log('leaveCancelled')
+            // console.log('leaveCancelled')
         }
     }
 }
@@ -123,6 +132,13 @@ html, body, #app {
     height: 100%;
 }
 #app > section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    > .contain {
+        flex: 1;
+        overflow-y: auto;
+    }
     // background-color: #999;
 }
 .slide-left-enter-active, .slide-left-leave-active, .slide-right-enter-active, .slide-right-leave-active {

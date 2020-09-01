@@ -13,7 +13,9 @@ import {
     NavBar,
     Form,
     Field,
-    Icon
+    Icon,
+    Tabbar,
+    TabbarItem
 } from 'vant'
 
 export default [
@@ -31,5 +33,7 @@ export default [
     NavBar,
     Form,
     Field,
-    Icon
+    Icon,
+    Tabbar,
+    TabbarItem
 ]
