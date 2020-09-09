@@ -45,16 +45,18 @@
             <h1>我的</h1>
             <h1>我的</h1>
         </div>
-        <van-tabbar value="my">
-            <van-tabbar-item @click="handleReplaceHome" icon="home-o">首页</van-tabbar-item>
-            <van-tabbar-item name="my" icon="search">我的</van-tabbar-item>
-        </van-tabbar>
+        <Tabbar active="my" />
     </section>
 </template>
 
 <script>
+import Tabbar from '@/components/Tabbar.vue'
+
 export default {
     name: 'my',
+    components: {
+        Tabbar
+    },
     data () {
         return {
         }

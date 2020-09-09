@@ -18,7 +18,7 @@ export default {
     },
     methods: {
         handleClick () {
-            this.goBack('hero')
+            this.goBack({ name: 'hero' })
         }
     }
 }

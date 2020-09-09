@@ -9,17 +9,19 @@
             </van-grid>
             <van-button @click="handleClick">跳转demo</van-button>
         </div>
-        <van-tabbar>
-            <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-            <van-tabbar-item @click="handleReplaceMy" icon="search">我的</van-tabbar-item>
-        </van-tabbar>
+        <Tabbar active="home" />
     </section>
 </template>
 
 <script>
 
+import Tabbar from '@/components/Tabbar.vue'
+
 export default {
     name: 'home',
+    components: {
+        Tabbar
+    },
     data () {
         return {
             autoplay: 3000,

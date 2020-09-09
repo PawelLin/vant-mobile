@@ -54,7 +54,7 @@ export default {
     },
     methods: {
         handleClick () {
-            this.goBack('home')
+            this.goBack({ name: 'home' })
         },
         handleActive (active) {
             this.scroll.grid = this.$refs.grid.$el.scrollTop = 0
@@ -95,13 +95,18 @@ export default {
             /deep/ .van-grid-item__content {
                 height: auto;
             }
+            &:after {
+                border-top-width: 0;
+            }
         }
     }
     &-image {
         width: 69px;
         height: 69px;
-        border: 2px solid #258DF2;
-        border-radius: 10px 0 10px 0;
+        /deep/ img {
+            border: 2px solid #258DF2;
+            border-radius: 10px 0 10px 0;
+        }
     }
 }
 </style>
