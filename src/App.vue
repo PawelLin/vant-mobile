@@ -53,7 +53,6 @@ export default {
                 if (this.forward !== null) {
                     const translateX = this.forward ? '100%' : '-100%'
                     el.style.position = 'absolute'
-                    el.style.width = '100%'
                     Velocity(el, { translateX }, { duration: 0 })
                 }
             }
@@ -82,7 +81,6 @@ export default {
             // console.log('afterEnter')
             if (!this.isTabbar) {
                 el.style.position = ''
-                el.style.width = ''
                 el.style.transform = ''
             }
         },
@@ -93,16 +91,13 @@ export default {
             // console.log('beforeLeave')
             if (!this.isTabbar) {
                 el.style.position = 'absolute'
-                el.style.width = '100%'
             }
         },
         leave (el, done) {
             // console.log('leave')
             if (!this.isTabbar) {
-                setTimeout(() => {
-                    const translateX = this.forward ? '-100%' : '100%'
-                    Velocity(el, { translateX }, { duration: this.duration, complete: done })
-                }, 10)
+                const translateX = this.forward ? '-100%' : '100%'
+                Velocity(el, { translateX }, { duration: this.duration, complete: done, delay: 10 })
             } else {
                 done()
             }
@@ -111,7 +106,6 @@ export default {
             // console.log('afterLeave')
             if (!this.isTabbar) {
                 el.style.position = ''
-                el.style.width = ''
                 el.style.transform = ''
             }
         },
@@ -132,10 +126,12 @@ html, body, #app {
     height: 100%;
 }
 #app > section {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
+    background-color: #f5f5f5;
     > .contain {
         flex: 1;
         overflow-y: auto;

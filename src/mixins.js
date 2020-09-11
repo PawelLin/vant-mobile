@@ -1,5 +1,9 @@
 export default {
     methods: {
+        // 页面切换动画为300ms，页面初始化数据(dom)时，数据(dom)过多会引起动画卡顿，可选择在动画完成后再初始化数据(dom)
+        delayInit (fn) {
+            setTimeout(fn, 360)
+        },
         getBackNumber (name) {
             const include = this.$store.state.include
             const backIndex = include.indexOf(name)

@@ -46,7 +46,9 @@ export default {
         this.scroll = { side: 0, grid: 0 }
     },
     created () {
-        this.list = data.hero.map(item => (item.show = true) && item)
+        this.delayInit(() => {
+            this.list = data.hero.map(item => (item.show = true) && item)
+        })
     },
     mounted () {
         console.log('Hero mounted')
