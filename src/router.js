@@ -66,6 +66,11 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "demo" */ './views/HeroDetail.vue')
         },
         {
+            path: '/skin',
+            name: 'skin',
+            component: () => import(/* webpackChunkName: "demo" */ './views/Skin.vue')
+        },
+        {
             path: '/wallpaper',
             name: 'wallpaper',
             component: () => import(/* webpackChunkName: "demo" */ './views/Wallpaper.vue')

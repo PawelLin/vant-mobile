@@ -35,7 +35,7 @@ export default {
             ],
             list: [
                 { name: 'hero', title: '英雄', icon: 'contact' },
-                { title: '皮肤', icon: 'user-o' },
+                { name: 'skin', title: '皮肤', icon: 'user-o' },
                 { title: '铭文', icon: 'bulb-o' },
                 { title: '攻略', icon: 'label-o' },
                 { name: 'wallpaper', title: '壁纸', icon: 'photo-o' },
