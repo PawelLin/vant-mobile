@@ -5,6 +5,7 @@ import store from './store'
 import mixins from './mixins'
 import importComponent from './components'
 import importDirective from './directive'
+import axios from './lib/axios'
 import 'amfe-flexible'
 
 Vue.config.productionTip = false
@@ -12,6 +13,8 @@ Vue.config.productionTip = false
 importComponent(Vue)
 importDirective(Vue)
 Vue.mixin(mixins)
+
+Vue.prototype.$http = axios
 
 new Vue({
     router,

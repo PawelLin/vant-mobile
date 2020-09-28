@@ -1,0 +1,122 @@
+const { positionPage } = req.query
+let data = null
+if (positionPage === 'personalNavList') {
+    data = {
+        'adList': [{
+            'id': '100001425',
+            'title': '卡券',
+            'type': '1',
+            'content': '卡券包',
+            'link': 'couponList?type=1&status=1&nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/e490ec87-4221-4258-b1d8-d7f6ee6f9117.png',
+            'beginTime': 1571228174000,
+            'description': '卡券',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001426',
+            'title': '红包',
+            'type': '1',
+            'content': '红包',
+            'link': 'discountCouponList?nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/7acc2b1a-ce34-4595-b7e9-7c265a9f4795.png',
+            'beginTime': 1571228260000,
+            'description': '红包',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001427',
+            'title': '方豆',
+            'type': '1',
+            'content': '方豆',
+            'link': 'integral/newBean?nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/affc47a4-5ec8-45a4-a903-d0fedd74d4dc.png',
+            'beginTime': 1571228426000,
+            'description': '方豆',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001428',
+            'title': '邀请有礼',
+            'type': '1',
+            'content': '邀请有礼1',
+            'link': 'friend/index',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/949fcaef-5b20-4c71-b9fb-46caec2fd227.png',
+            'beginTime': 1571228501000,
+            'description': '邀请有礼2',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001429',
+            'title': '我的客服',
+            'type': '1',
+            'content': '我的客服',
+            'link': 'serviceCenter?nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/37982be6-e162-4406-9c61-6f5f1278f68a.png',
+            'beginTime': 1571228560000,
+            'description': '我的客服',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001430',
+            'title': '我的收藏',
+            'type': '1',
+            'content': '我的收藏',
+            'link': 'my/collection?nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/695ae9c0-b586-48c4-9efa-fea1cc84d4fd.png',
+            'beginTime': 1571228628000,
+            'description': '我的收藏',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001431',
+            'title': '设置',
+            'type': '1',
+            'content': '设置',
+            'link': 'safeCenter/index?nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/7dec05b1-2af9-4341-bee9-cdfb1316312d.png',
+            'beginTime': 1571228695000,
+            'description': '设置',
+            'width': 0,
+            'height': 0
+        }, {
+            'id': '100001465',
+            'title': '订单',
+            'type': '1',
+            'content': '订单',
+            'link': 'orderClassify?nodata=1',
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201912/a9de6276-554f-4f44-9576-0656bcdf993b.png',
+            'beginTime': 1575964796000,
+            'description': null,
+            'width': 0,
+            'height': 0
+        }],
+        'result': null
+    }
+} else if (positionPage === 'personalTopBg') {
+    data = {
+        'adList': [{
+            'id': '100000702',
+            'title': '个人中心顶部背景图',
+            'type': '1',
+            'content': null,
+            'link': null,
+            'isBlankTarge': null,
+            'path': '/froad-cb/coremodule/201805/66d33e19-09a2-46bc-a599-a7d6aa4dbfc1.png',
+            'beginTime': 1526010097000,
+            'description': '个人中心顶部背景图',
+            'width': 0,
+            'height': 0
+        }],
+        'result': null
+    }
+}
+next(null, data)

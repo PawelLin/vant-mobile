@@ -15,7 +15,10 @@ import {
     Field,
     Icon,
     Tabbar,
-    TabbarItem
+    TabbarItem,
+    Skeleton,
+    Cell,
+    CellGroup
 } from 'vant'
 
 export default [
@@ -35,5 +38,8 @@ export default [
     Field,
     Icon,
     Tabbar,
-    TabbarItem
+    TabbarItem,
+    Skeleton,
+    Cell,
+    CellGroup
 ]

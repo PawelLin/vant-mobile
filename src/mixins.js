@@ -22,7 +22,7 @@ export default {
             this.$router.go(-this.getBackNumber(name))
         },
         replaceRoute (params) {
-            this.$router.replace({ ...params, ...{ params: { replace: true } } })
+            return this.$router.replace({ ...params, ...{ params: { ...(params.params || {}), replace: true } } })
         }
     }
 }

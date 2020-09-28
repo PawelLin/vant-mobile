@@ -4,9 +4,10 @@ class Back {
         this.STATE = 'x-back'
         this.event = document.createEvent('Events')
         this.event.initEvent(this.STATE, false, false)
-        window.addEventListener('popstate', this.onPopState)
+        window.addEventListener('popstate', this.onPopState, false)
     }
     onPopState = event => {
+        event.state !== this.STATE && this.element1 && this.element1.dispatchEvent(this.event)
         event.state === this.STATE && this.element.dispatchEvent(this.event)
     }
     record (state) {
@@ -17,13 +18,18 @@ class Back {
     perRecord () {
         history.pushState(this.STATE, null, location.href)
     }
-    listen (listener, notBack) {
+    listen (listener, listener1) {
         this.record(this.STATE)
         this.element = document.createElement('span')
         this.element.addEventListener(this.STATE, listener, false)
+        if (listener1) {
+            this.element1 = document.createElement('span')
+            this.element1.addEventListener(this.STATE, listener1, false)
+        }
+    }
+    removeListen () {
+        window.removeEventListener('popstate', this.onPopState)
     }
 }
 
-const XBack = new Back()
-
-export default XBack
+export default Back

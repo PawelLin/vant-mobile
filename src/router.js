@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
 
@@ -23,12 +22,42 @@ const router = new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: () => import(/* webpackChunkName: "home" */ './views/boutique/Home.vue')
+        },
+        {
+            path: '/sort',
+            name: 'sort',
+            component: () => import(/* webpackChunkName: "sort" */ './views/boutique/Sort.vue')
         },
         {
             path: '/my',
             name: 'my',
-            component: () => import(/* webpackChunkName: "my" */ './views/My.vue')
+            component: () => import(/* webpackChunkName: "my" */ './views/boutique/My.vue')
+        },
+        {
+            path: '/my/message',
+            name: 'myMessage',
+            component: () => import(/* webpackChunkName: "my" */ './views/boutique/my/Message.vue')
+        },
+        {
+            path: '/my/setup',
+            name: 'mySetup',
+            component: () => import(/* webpackChunkName: "my" */ './views/boutique/my/Setup.vue')
+        },
+        {
+            path: '/login/page',
+            name: 'loginPage',
+            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login/Page.vue')
+        },
+        {
+            path: '/login/tabbar',
+            name: 'loginTabbar',
+            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login/Tabbar.vue')
+        },
+        {
+            path: '/login/code',
+            name: 'loginCode',
+            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login/Code.vue')
         },
         {
             path: '/about',

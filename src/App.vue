@@ -28,11 +28,17 @@ export default {
             isTabbar: true
         }
     },
-    beforeCreate () {
-        this.duration = 300
-    },
     computed: mapState({
-        include: state => state.routes.filter(item => !item.refresh).map(item => item.name).concat(state.tabbar),
+        include: state => {
+            const include = state.routes.filter(item => !item.refresh && !state.tabbar.includes(item.name)).map(item => item.name).concat(
+                state.tabbar.filter(item => {
+                    const tabbarRoute = state.tabbarRoutes[item]
+                    return !tabbarRoute || (tabbarRoute && !tabbarRoute.refresh)
+                })
+            )
+            console.log(include)
+            return include
+        },
         forward: state => state.forward,
         routes: state => {
             const routes = {}
@@ -43,27 +49,32 @@ export default {
         },
         tabbarRoutes: state => state.tabbarRoutes,
         tabbar: state => state.tabbar,
-        fromRoute: state => state.fromRoute
+        fromRoute: state => state.fromRoute,
+        transition: state => state.transition
     }),
+    beforeCreate () {
+        this.duration = 1500
+    },
     methods: {
         beforeEnter (el) {
-            // console.log('beforeEnter')
+            // console.log('beforeEnter', el.style.transform, el)
             this.isTabbar = this.tabbar.includes(this.$route.name) && this.tabbar.includes(this.fromRoute)
-            if (!this.isTabbar) {
-                if (this.forward !== null) {
-                    const translateX = this.forward ? '100%' : '-100%'
+            this.isTransition = this.transition
+            this.isForward = this.forward
+            if (this.isTransition) {
+                if (this.isForward !== null) {
                     el.style.position = 'absolute'
-                    Velocity(el, { translateX }, { duration: 0 })
                 }
             }
         },
         enter (el, done) {
-            // console.log('enter')
+            // console.log('enter', el.style.transform, el)
             const { refresh, scrollTop = 0 } = this.tabbarRoutes[this.$route.name] || this.routes[this.$route.name] || {}
-            if (!this.isTabbar) {
-                if (this.forward !== null) {
-                    Velocity(el, { translateX: 0 }, { duration: this.duration, complete: done })
-                    if (this.forward) {
+            if (this.isTransition) {
+                if (this.isForward !== null) {
+                    const translateX = this.isForward ? '100%' : '-100%'
+                    Velocity(el, { translateX: ['0%', translateX] }, { duration: this.duration, complete: done })
+                    if (this.isForward) {
                     } else {
                         if (refresh) { // 需要刷新页面就不设置scrollTop了
                             this.$store.commit('setRoute', { name: this.$route.name, refresh: false })
@@ -73,40 +84,44 @@ export default {
                     }
                 }
             } else {
-                el.querySelector('.contain').scrollTop = scrollTop
+                if (this.isTabbar) {
+                    el.querySelector('.contain').scrollTop = scrollTop
+                }
                 done()
             }
         },
         afterEnter (el) {
-            // console.log('afterEnter')
-            if (!this.isTabbar) {
+            // console.log('afterEnter', el.style.transform, el)
+            if (this.isTransition) {
                 el.style.position = ''
-                el.style.transform = ''
             }
         },
         enterCancelled (el) {
             // console.log('enterCancelled')
         },
         beforeLeave (el) {
-            // console.log('beforeLeave')
-            if (!this.isTabbar) {
+            // console.log('beforeLeave', el.style.transform, el)
+            if (this.isTransition) {
                 el.style.position = 'absolute'
             }
         },
         leave (el, done) {
-            // console.log('leave')
-            if (!this.isTabbar) {
-                const translateX = this.forward ? '-100%' : '100%'
-                Velocity(el, { translateX }, { duration: this.duration, complete: done, delay: 10 })
+            // console.log('leave', el.style.transform, el)
+            if (this.isTransition) {
+                const translateX = this.isForward ? '-100%' : '100%'
+                Velocity(el, { translateX: [translateX, '0%'] }, { duration: this.duration, complete: done })
             } else {
                 done()
             }
         },
         afterLeave (el) {
-            // console.log('afterLeave')
-            if (!this.isTabbar) {
+            // console.log('afterLeave', el.style.transform, el)
+            if (this.isTransition) {
                 el.style.position = ''
-                el.style.transform = ''
+                Velocity(el, { translateX: '0%' }, { duration: 0 })
+            }
+            if (this.transition === false) {
+                this.$store.commit('setTransition', true)
             }
         },
         leaveCancelled (el) {

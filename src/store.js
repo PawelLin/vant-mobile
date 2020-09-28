@@ -10,12 +10,13 @@ export default new Vuex.Store({
         forward: null,
         back: 0,
         tabbarRoutes: {},
-        tabbar: ['home', 'my'],
-        fromRoute: ''
+        tabbar: ['home', 'sort', 'my'],
+        fromRoute: '',
+        transition: true
     },
     mutations: {
         setRoutes (state, route) {
-            const { to: { name, params: { replace } }, from } = route
+            const { to: { name, params: { replace, forward } }, from } = route
             state.fromRoute = from && from.name
             if (!from || !from.name) {
                 state.routes = [{ name }]
@@ -25,7 +26,7 @@ export default new Vuex.Store({
                 const routeLength = state.routes.length - 1
                 state.routes[routeLength].name = name
                 state.include[routeLength] = name
-                state.forward = true
+                state.forward = forward !== undefined ? forward : true
             } else {
                 const toIndex = state.include.indexOf(name)
                 if (toIndex === -1) {
@@ -41,12 +42,12 @@ export default new Vuex.Store({
             }
         },
         setRoute (state, { name, ...params }) {
-            if (state.tabbar.includes(name)) {
-                state.tabbarRoutes[name] = params
-                return
+            const isTabbar = state.tabbar.includes(name)
+            if (isTabbar && !state.tabbarRoutes[name]) {
+                Vue.set(state.tabbarRoutes, name, {})
             }
             const routeIndex = state.include.indexOf(name)
-            const route = state.routes[routeIndex]
+            const route = isTabbar ? state.tabbarRoutes[name] : state.routes[routeIndex]
             if (route) {
                 Object.keys(params).forEach(key => {
                     if (route.hasOwnProperty(key)) {
@@ -57,6 +58,10 @@ export default new Vuex.Store({
                     }
                 })
             }
+        },
+        setTransition (state, transition) {
+            state.transition = transition
+            console.log('transition', state.transition)
         }
     },
     actions: {
