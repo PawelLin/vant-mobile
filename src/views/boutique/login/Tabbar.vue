@@ -19,12 +19,11 @@ export default {
     created () {
         this.Back = new Back()
         this.Back.listen(() => {
-            console.log(1)
             this.$router.go(-2)
         }, () => {
             if (this.isLogin) {
-                if (this.$route.name !== 'my') {
-                    this.replaceRoute({ name: 'my', params: { forward: false } })
+                if (this.$route.name !== this.toName) {
+                    this.replaceRoute({ name: this.toName, params: { forward: false } })
                 }
             } else {
                 if (this.$route.name !== this.fromName) {
@@ -38,6 +37,7 @@ export default {
         next(vm => {
             vm.fromName = from.name
             vm.backName = vm.$route.params.backName
+            vm.toName = vm.$route.params.toName || 'my'
         })
     }
 }

@@ -18,7 +18,8 @@ import {
     TabbarItem,
     Skeleton,
     Cell,
-    CellGroup
+    CellGroup,
+    Sticky
 } from 'vant'
 
 export default [
@@ -41,5 +42,6 @@ export default [
     TabbarItem,
     Skeleton,
     Cell,
-    CellGroup
+    CellGroup,
+    Sticky
 ]
