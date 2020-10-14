@@ -7,8 +7,8 @@ class Back {
         window.addEventListener('popstate', this.onPopState, false)
     }
     onPopState = event => {
-        event.state !== this.STATE && this.element1 && this.element1.dispatchEvent(this.event)
         event.state === this.STATE && this.element.dispatchEvent(this.event)
+        event.state !== this.STATE && this.element1 && this.element1.dispatchEvent(this.event)
     }
     record (state) {
         history.pushState(state, null, location.href)
@@ -29,6 +29,9 @@ class Back {
     }
     removeListen () {
         window.removeEventListener('popstate', this.onPopState)
+    }
+    recoverListen () {
+        window.addEventListener('popstate', this.onPopState, false)
     }
 }
 

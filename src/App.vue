@@ -36,7 +36,6 @@ export default {
                     return !tabbarRoute || (tabbarRoute && !tabbarRoute.refresh)
                 })
             )
-            console.log(include)
             return include
         },
         forward: state => state.forward,

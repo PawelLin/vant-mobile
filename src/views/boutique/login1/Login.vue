@@ -15,17 +15,28 @@
                 class="input"
                 >
             </van-field>
-            <van-button @click="handleLogin" block type="primary" color="#fea30b">登录</van-button>
+            <van-button @click="handleGetCode" block type="primary" color="#fea30b">下一步</van-button>
         </div>
     </section>
 </template>
 
 <script>
-import { setCookie } from '@/lib/utils'
 
 export default {
     props: {
-        isLogin: {
+        fromName: {
+            type: String,
+            default: ''
+        },
+        toName: {
+            type: String,
+            default: ''
+        },
+        backName: {
+            type: String,
+            default: ''
+        },
+        isTabbar: {
             type: Boolean,
             default: false
         }
@@ -41,21 +52,15 @@ export default {
         },
         handleGetCode () {
             this.$router.push({
-                name: 'loginCode',
+                name: 'login1Code',
                 params: {
                     mobile: this.mobile,
-                    fromName: this.fromName
+                    fromName: this.fromName,
+                    backName: this.backName,
+                    toName: this.toName,
+                    isTabbar: this.isTabbar
                 }
             })
-        },
-        handleLogin () {
-            this.$http.post('/user/login/mobileCheckLogin', {
-            }).then(res => {
-                setCookie('u_login_token', 'u_login_token')
-                setCookie('memberCode', 'memberCode')
-                this.$emit('update:isLogin', true)
-                this.$router.go(-1)
-            }).catch(() => {})
         }
     }
 }

@@ -19,7 +19,12 @@ import {
     Skeleton,
     Cell,
     CellGroup,
-    Sticky
+    Sticky,
+    Card,
+    Stepper,
+    SubmitBar,
+    Checkbox,
+    Empty
 } from 'vant'
 
 export default [
@@ -43,5 +48,10 @@ export default [
     Skeleton,
     Cell,
     CellGroup,
-    Sticky
+    Sticky,
+    Card,
+    Stepper,
+    SubmitBar,
+    Checkbox,
+    Empty
 ]

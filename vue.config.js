@@ -37,7 +37,7 @@ if (process.env.npm_config_proxydev) {
             headers: {
                 'referer': 'http://gray.ubank365.com/chaoyang/',
                 'host': 'gray.ubank365.com',
-                'cookie': 'parentCityId=1563; parentCityCode=218; cityId=1563; areaId=1563; cityCode=; cityName=%u6B66%u6C49%u5E02; longitude=; latitude=; Hm_lvt_6a50b533727d8ef7e2e0353bc8974152=1602209188; clientTag=%7B%22longitude%22%3A%22%22%2C%22latitude%22%3A%22%22%2C%22uniqueIdentifier%22%3A%22sid_kfm8weiyxm8%22%7D; imgToken=02cded240c51406b92662959581f961b; u_login_token=pe_token_7AA84185AE765489002070EDDEAB0A7B; memberCode=52002078934; memberOpId=4691d6d93f0763f1; userInfo=\"{\\\"c\\\":\\\"0\\\",\\\"id\\\":\\\"mc_01450787422\\\",\\\"m\\\":\\\"137****4449\\\",\\\"p\\\":\\\"0\\\",\\\"q\\\":\\\"0\\\"}\"; buttonId=; isSupport=false; Hm_lpvt_6a50b533727d8ef7e2e0353bc8974152=1602209452',
+                'cookie': 'parentCityId=1563; cityId=1563; u_login_token=pe_token_7AA84185AE765489002070EDDEAB0A7B; memberCode=52002078934; memberOpId=4691d6d93f0763f1; userInfo=\"{\\\"c\\\":\\\"0\\\",\\\"id\\\":\\\"mc_01450787422\\\",\\\"m\\\":\\\"137****4449\\\",\\\"p\\\":\\\"0\\\",\\\"q\\\":\\\"0\\\"}\"; Hm_lvt_395d27779135db02929478405bd6b8ff=1600324171,1600391481,1600674156,1602230195; longitude=; latitude=; isSupport=false; parentCityCode=127; cityCode=; Hm_lvt_6a50b533727d8ef7e2e0353bc8974152=1602209188,1602556493,1602654958; clientTag=%7B%22longitude%22%3A%22%22%2C%22latitude%22%3A%22%22%2C%22uniqueIdentifier%22%3A%22sid_kfm8weiyxm8%22%7D; buttonId=; areaId=1563; cityName=%u6B66%u6C49%u5E02; Hm_lpvt_6a50b533727d8ef7e2e0353bc8974152=1602654977',
                 'token': 'pe_token_7AA84185AE765489002070EDDEAB0A7B',
                 'memberCode': '52002078934'
             }

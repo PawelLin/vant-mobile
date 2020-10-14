@@ -111,9 +111,7 @@ export default {
                     types[num].push(item)
                 })
                 types[types.length - 1].push(new Array(5 - types[types.length - 1].length))
-                console.log(types)
                 this.types = types
-                console.log(this.types)
             }).catch(() => {})
         },
         scrollListen (e) {

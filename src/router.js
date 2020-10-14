@@ -60,9 +60,19 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "login" */ './views/boutique/login/Tabbar.vue')
         },
         {
-            path: '/login/code',
-            name: 'loginCode',
-            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login/Code.vue')
+            path: '/login1/page',
+            name: 'login1Page',
+            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login1/Page.vue')
+        },
+        {
+            path: '/login1/tabbar',
+            name: 'login1Tabbar',
+            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login1/Tabbar.vue')
+        },
+        {
+            path: '/login1/code',
+            name: 'login1Code',
+            component: () => import(/* webpackChunkName: "login" */ './views/boutique/login1/Code.vue')
         },
         {
             path: '/about',

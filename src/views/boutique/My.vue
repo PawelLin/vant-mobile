@@ -29,7 +29,7 @@
                     <div class="fun-item" :style="{ backgroundImage: `url(${item.path})` }">{{item.content}}</div>
                 </van-grid-item>
             </van-grid>
-            <van-button @click="handleLogout" type="primary">退出登录</van-button>
+            <van-button @click="handleLogout" type="primary">直接退出登录</van-button>
         </div>
         <Tabbar active="my" />
     </section>

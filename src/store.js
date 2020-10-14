@@ -61,7 +61,6 @@ export default new Vuex.Store({
         },
         setTransition (state, transition) {
             state.transition = transition
-            console.log('transition', state.transition)
         }
     },
     actions: {

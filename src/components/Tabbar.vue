@@ -23,7 +23,11 @@ export default {
                         name
                     })
                 } else {
-                    this.$router.push({ name: 'loginTabbar', params: { toName: name } })
+                    if (name === 'my') {
+                        this.$router.push({ name: 'loginTabbar', params: { toName: name } })
+                    } else {
+                        this.$router.push({ name: 'login1Tabbar', params: { toName: name } })
+                    }
                 }
             }
         }
