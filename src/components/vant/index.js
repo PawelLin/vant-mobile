@@ -24,7 +24,16 @@ import {
     Stepper,
     SubmitBar,
     Checkbox,
-    Empty
+    Empty,
+    GoodsAction,
+    GoodsActionButton,
+    GoodsActionIcon,
+    Toast,
+    ActionSheet,
+    CouponCell,
+    CouponList,
+    Popup,
+    Switch
 } from 'vant'
 
 export default [
@@ -53,5 +62,14 @@ export default [
     Stepper,
     SubmitBar,
     Checkbox,
-    Empty
+    Empty,
+    GoodsAction,
+    GoodsActionButton,
+    GoodsActionIcon,
+    Toast,
+    ActionSheet,
+    CouponCell,
+    CouponList,
+    Popup,
+    Switch
 ]

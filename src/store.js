@@ -10,7 +10,7 @@ export default new Vuex.Store({
         forward: null,
         back: 0,
         tabbarRoutes: {},
-        tabbar: ['home', 'sort', 'my'],
+        tabbar: ['home', 'sort', 'cart', 'my'],
         fromRoute: '',
         transition: true
     },

@@ -36,7 +36,46 @@
                         <van-image :src="item.path" />
                     </van-grid-item>
                 </van-grid>
-                <Test />
+                <div class="floor">
+                    <div v-for="floor in floors1" :key="'floor1' + floor.floorIndex">
+                        <van-swipe class="floor-swipe">
+                            <van-swipe-item v-for="(item, index) in floor.floorImageList" :key="'floor1-swpie' + floor.floorIndex + index">
+                                <lazy-background-image :image="item.imgUrl" class="floor-background" />
+                            </van-swipe-item>
+                        </van-swipe>
+                        <div class="floor-item">
+                            <div v-for="(item, index) in floor.floorProductList" @click="handleToDetail(item.productId)" :key="'floor1-item' + floor.floorIndex + index">
+                                <lazy-background-image :image="item.imageUrl" class="floor-image" />
+                                <p class="floor-name">{{item.name}}</p>
+                                <p class="floor-price"><shop-price :price="item.price" /></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <van-swipe class="mid-swipe">
+                    <van-swipe-item v-for="(item, index) in midImages" :key="'mid-image-' + index">
+                        <img v-lazy="item.path" />
+                    </van-swipe-item>
+                </van-swipe>
+                <div class="floor-bottom">
+                    <div v-for="floor in floors2" :key="'floors2' + floor.floorIndex">
+                        <van-swipe class="floor-bottom-swipe">
+                            <van-swipe-item v-for="(item, index) in floor.floorImageList" :key="'floors2-swpie' + floor.floorIndex + index">
+                                <lazy-background-image :image="item.imgUrl" class="floor-bottom-background" />
+                            </van-swipe-item>
+                        </van-swipe>
+                        <div class="floor-bottom-item">
+                            <div class="floor-item">
+                                <div v-for="(item, index) in floor.floorProductList" @click="handleToDetail(item.productId)" :key="'floors2-item' + floor.floorIndex + index">
+                                    <lazy-background-image :image="item.imageUrl" class="floor-image" />
+                                    <p class="floor-name">{{item.name}}</p>
+                                    <p class="floor-price"><shop-price :price="item.price" /></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <Test /> -->
             </div>
         </div>
         <Tabbar active="home" />
@@ -44,13 +83,15 @@
 </template>
 
 <script>
-import Tabbar from '@/components/Tabbar.vue'
+import Tabbar from '@/components/boutique/Tabbar.vue'
+import LazyBackgroundImage from '@/components/LazyBackgroundImage.vue'
 import Test from './Test.vue'
 
 export default {
     name: 'home',
     components: {
         Tabbar,
+        LazyBackgroundImage,
         Test
     },
     data () {
@@ -58,6 +99,9 @@ export default {
             banner: [],
             types: [],
             topImages: [],
+            midImages: [],
+            floors1: [],
+            floors2: [],
             navBarBackgroundColor: '',
             navBarIconColor: '#ffffff',
             swipeTypeBorderRadius: ''
@@ -74,6 +118,7 @@ export default {
     created () {
         this.getAdvertises()
         this.getTypes()
+        this.getFloors()
     },
     methods: {
         getAdvertises () {
@@ -86,11 +131,11 @@ export default {
             }).then(res => {
                 const topImages = []
                 this.banner = res.data.banner.adList.map(item => {
-                    item.path = (item.path && (process.env.VUE_APP_IMG + item.path)) || item.path
+                    item.path = this.imageFix(item.path)
                     return item
                 })
                 res.data.topAd.adList.forEach((item, index) => {
-                    item.path = (item.path && (process.env.VUE_APP_IMG + item.path)) || item.path
+                    item.path = this.imageFix(item.path)
                     if (index === 0) {
                         topImages[0] = [item]
                     } else {
@@ -99,6 +144,10 @@ export default {
                     }
                 })
                 this.topImages = topImages
+                this.midImages = res.data.midAd.adList.map(item => {
+                    item.path = this.imageFix(item.path)
+                    return item
+                })
             })
         },
         getTypes () {
@@ -106,12 +155,27 @@ export default {
                 const types = []
                 res.data.data.forEach((item, index) => {
                     let num = Math.floor(index / 5)
-                    item.icoUrl = process.env.VUE_APP_QINIU + item.icoUrl
+                    item.icoUrl = this.imageFix(item.icoUrl)
                     types[num] = types[num] || []
                     types[num].push(item)
                 })
                 types[types.length - 1].push(new Array(5 - types[types.length - 1].length))
                 this.types = types
+            }).catch(() => {})
+        },
+        getFloors () {
+            this.$http.get('/boutique/home/floor').then(res => {
+                const floors1 = []
+                const floors2 = []
+                res.data.data.forEach(item => {
+                    item.floorProductList.forEach(item => {
+                        item.imageUrl = this.imageFix(item.imageUrl)
+                    })
+                    item.floorType === '01' && floors1.push(item)
+                    item.floorType === '02' && floors2.push(item)
+                })
+                this.floors1 = floors1
+                this.floors2 = floors2
             }).catch(() => {})
         },
         scrollListen (e) {
@@ -121,6 +185,14 @@ export default {
             this.navBarBackgroundColor = `rgba(255, 255, 255, ${opacity})`
             this.navBarIconColor = opacity >= 1 ? '#646566' : '#ffffff'
             this.swipeTypeBorderRadius = opacity >= 1 ? '0' : ''
+        },
+        handleToDetail (productId) {
+            this.$router.push({
+                name: 'productDetail',
+                params: {
+                    productId
+                }
+            })
         }
     }
 }
@@ -204,6 +276,80 @@ export default {
         position: relative;
         background-color: #f5f5f5;
         z-index: 1;
+        .floor {
+            padding: 20px 12px 10px;
+            background-color: #ffffff;
+            > div + div {
+                margin-top: 30px;
+            }
+            &-background {
+                height: 102px;
+            }
+            &-item {
+                margin-top: 20px;
+                padding: 0 10px;
+                display: grid;
+                grid-template-columns: repeat(3, 33.333%);
+                grid-row-gap: 12px;
+                > div {
+                    padding: 0 10px;
+                }
+            }
+            &-image {
+                width: 100%;
+                height: 86px;
+            }
+            &-name {
+                margin-top: 5px;
+                font-size: 12px;
+                color: #999;
+                line-clamp: 3;
+                -webkit-line-clamp: 3;
+                height: 45px;
+                line-height: 15px;
+                overflow: hidden;
+                display: -webkit-box;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical;
+            }
+            &-price {
+                margin-top: 5px;
+                color: #333333;
+            }
+        }
+        .mid-swipe {
+            padding: 15px 0;
+            height: 193px;
+            background-color: #ffffff;
+            /deep/ img {
+                padding: 0 12px;
+                width: 100%;
+                height: 100%;
+                object-position: top;
+                object-fit: cover;
+            }
+        }
+        .floor-bottom {
+            padding: 0 12px;
+            background: linear-gradient(180deg, #fff 0%, #f9f9f9 20%, #f8f8f8 100%);
+            > div {
+                padding-bottom: 20px;
+            }
+            &-background {
+                height: 80px;
+            }
+            &-item {
+                position: relative;
+                margin-top: -10px;
+                padding: 15px 0;
+                background-color: #ffffff;
+                border-radius: 10px;
+                z-index: 1;
+            }
+            .floor-item {
+                margin-top: 0;
+            }
+        }
     }
 }
 </style>

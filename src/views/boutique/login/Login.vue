@@ -49,13 +49,13 @@ export default {
             })
         },
         handleLogin () {
-            this.$http.post('/user/login/mobileCheckLogin', {
-            }).then(res => {
-                setCookie('u_login_token', 'u_login_token')
-                setCookie('memberCode', 'memberCode')
-                this.$emit('update:isLogin', true)
-                this.$router.go(-1)
-            }).catch(() => {})
+            // this.$http.post('/user/login/mobileCheckLogin', {
+            // }).then(res => {
+            setCookie('u_login_token', 'u_login_token')
+            setCookie('memberCode', 'memberCode')
+            this.$emit('update:isLogin', true)
+            this.$router.go(-1)
+            // }).catch(() => {})
         }
     }
 }

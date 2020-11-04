@@ -49,7 +49,7 @@ export default {
         this.toName = this.$route.params.toName
         this.backName = this.$route.params.backName
         this.isTabbar = this.$route.params.isTabbar
-        this.handleGetCode()
+        // this.handleGetCode()
         this.isTabbar && this.listenBack()
     },
     methods: {
@@ -82,22 +82,22 @@ export default {
             })
         },
         handleLogin () {
-            this.$http.post('/user/login/mobileCheckLogin', {
-                code: this.form.code,
-                createChannel: 'CB_M',
-                loginTime: dateFormat(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                mobile: this.form.mobile,
-                token: this.form.token
-            }).then(res => {
-                setCookie('u_login_token', 'u_login_token')
-                setCookie('memberCode', 'memberCode')
-                this.isLogin = true
-                if (this.isTabbar) {
-                    this.$router.go(-1)
-                } else {
-                    this.goBack({ name: this.fromName, refresh: true })
-                }
-            }).catch(() => {})
+            // this.$http.post('/user/login/mobileCheckLogin', {
+            //     code: this.form.code,
+            //     createChannel: 'CB_M',
+            //     loginTime: dateFormat(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+            //     mobile: this.form.mobile,
+            //     token: this.form.token
+            // }).then(res => {
+            setCookie('u_login_token', 'u_login_token')
+            setCookie('memberCode', 'memberCode')
+            this.isLogin = true
+            if (this.isTabbar) {
+                this.$router.go(-1)
+            } else {
+                this.goBack({ name: this.fromName, refresh: true })
+            }
+            // }).catch(() => {})
         }
     }
 }

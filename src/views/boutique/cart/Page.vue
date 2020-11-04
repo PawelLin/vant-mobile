@@ -1,11 +1,11 @@
 <template>
-    <Cart :isTabbar="true" />
+    <Cart />
 </template>
 
 <script>
-import Cart from './cart/Cart.vue'
+import Cart from './Cart.vue'
 export default {
-    name: 'cart',
+    name: 'cartPage',
     components: {
         Cart
     },

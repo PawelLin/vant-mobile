@@ -131,13 +131,19 @@ export default {
 </script>
 
 <style lang="less">
+@font-face {
+    font-family: 'PingFang-Medium';
+    src: url('~@/assets/boutique/font/PingFang-Medium.ttf');
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: PingFang-Medium;
 }
 html, body, #app {
     height: 100%;
+    font-size: 12px;
 }
 #app > section {
     position: relative;

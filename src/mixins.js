@@ -23,6 +23,9 @@ export default {
         },
         replaceRoute (params) {
             return this.$router.replace({ ...params, ...{ params: { ...(params.params || {}), replace: true } } })
+        },
+        imageFix (url) {
+            return /^http[s]/i.test(url) ? url : (process.env[url.includes('.') ? 'VUE_APP_IMG' : 'VUE_APP_QINIU'] + url)
         }
     }
 }

@@ -5,6 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve --open",
+    "dev:proxy": "npm run dev --proxydev",
+    "prod": "vue-cli-service serve --open --mode production",
+    "dev:prod": "npm run prod --proxydev",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -32,6 +35,8 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "postcss-pxtorem": "^4.0.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

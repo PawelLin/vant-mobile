@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Tabbar from '@/components/Tabbar.vue'
+import Tabbar from '@/components/boutique/Tabbar.vue'
 import { setCookie } from '@/lib/utils'
 export default {
     name: 'my',
@@ -55,10 +55,11 @@ export default {
     created () {
         console.log('my created')
         Promise.all([this.getDetail(), this.getList(), this.getBanner()]).then(res => {
-            this.detail = res[0].data
-            this.detail.banner = process.env.VUE_APP_IMG + res[2].data.adList[0].path
-            this.detail.userAcct.avatar = process.env.VUE_APP_QINIU + this.detail.userAcct.avatar
-            this.setList(res[1].data.adList)
+            let [{ data: data1 }, { data: data2 }, { data: data3 }] = res
+            data1.banner = (data3.adList[0] && this.imageFix(data3.adList[0].path)) || ''
+            data1.userAcct.avatar = this.imageFix(data1.userAcct.avatar)
+            this.detail = data1
+            this.setList(data2.adList)
         }).catch(() => {})
     },
     methods: {

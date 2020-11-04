@@ -11,7 +11,7 @@
             </van-sidebar>
             <van-grid ref="grid" class="grid" :column-num="3" :border="false">
                 <van-grid-item v-for="{ name, id, icoUrl, show } in grids" v-show="show === active" :key="id + '' + show">
-                    <van-image :ref="(show === active && 'images') || null" :src="VUE_APP_QINIU + icoUrl" class="image" lazy-load />
+                    <van-image :ref="(show === active && 'images') || null" :src="icoUrl" class="image" lazy-load />
                     <p class="name">{{name}}</p>
                 </van-grid-item>
             </van-grid>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Tabbar from '@/components/Tabbar.vue'
+import Tabbar from '@/components/boutique/Tabbar.vue'
 export default {
     name: 'sort',
     components: {
@@ -29,7 +29,6 @@ export default {
     },
     data () {
         return {
-            VUE_APP_QINIU: process.env.VUE_APP_QINIU,
             active: 0,
             sides: [],
             grids: []
@@ -52,7 +51,7 @@ export default {
                 const sides = []
                 const grids = []
                 res.data.data.categoryList.forEach((item, index) => {
-                    grids.push(...item.subCategroyList.map(ite => ({ ...ite, show: index })))
+                    grids.push(...item.subCategroyList.map(ite => ({ ...ite, show: index, icoUrl: this.imageFix(ite.icoUrl) })))
                     delete item.subCategroyList
                     sides.push(item)
                 })

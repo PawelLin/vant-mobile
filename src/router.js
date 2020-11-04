@@ -35,6 +35,11 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "cart" */ './views/boutique/Cart.vue')
         },
         {
+            path: '/cart/page',
+            name: 'cartPage',
+            component: () => import(/* webpackChunkName: "cart" */ './views/boutique/cart/Page.vue')
+        },
+        {
             path: '/my',
             name: 'my',
             component: () => import(/* webpackChunkName: "my" */ './views/boutique/My.vue')
@@ -73,6 +78,26 @@ const router = new Router({
             path: '/login1/code',
             name: 'login1Code',
             component: () => import(/* webpackChunkName: "login" */ './views/boutique/login1/Code.vue')
+        },
+        {
+            path: '/product/detail/:productId',
+            name: 'productDetail',
+            component: () => import(/* webpackChunkName: "product" */ './views/boutique/product/Detail.vue')
+        },
+        {
+            path: '/order/confirm/:productId/:quantity',
+            name: 'orderConfirm',
+            component: () => import(/* webpackChunkName: "cart" */ './views/boutique/order/Confirm.vue')
+        },
+        {
+            path: '/game/sudoku',
+            name: 'sudoku',
+            component: () => import(/* webpackChunkName: "game" */ './views/game/Sudoku.vue')
+        },
+        {
+            path: '/game/fight',
+            name: 'fight',
+            component: () => import(/* webpackChunkName: "game" */ './views/game/Fight.vue')
         },
         {
             path: '/about',
